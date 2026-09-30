@@ -69,7 +69,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .tabs button:hover{color:var(--ink)}
 .tabs button.on{color:var(--ink);border-bottom-color:var(--red)}
 
-main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
+main{max-width:1180px;margin:0 auto;padding:14px 20px 28px}
 .view{display:none}
 .view.on{display:block}
 
@@ -87,9 +87,21 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .terms dd{margin:0;font-family:var(--display);font-weight:600;font-size:21px;line-height:1.1;font-variant-numeric:tabular-nums}
 .terms .wide{grid-column:span 2}
 
+/* ---------- bandeau par défaut (deux lignes) ---------- */
+.banner{background:var(--paper);border-radius:16px;box-shadow:var(--shadow);padding:14px 22px 14px 26px;position:relative;overflow:hidden}
+.banner::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(180deg,#CE1126 0 33.3%,#FCD116 33.3% 66.6%,#009460 66.6%)}
+.bn-title{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.1}
+.bn-title .g{color:var(--forest)}
+.bn-title .r{color:var(--red);white-space:nowrap}
+.bn-arr{margin-top:4px;font-size:17px;font-weight:600;color:var(--ink)}
+.bn-arr strong{font-family:var(--display);font-weight:700;font-size:23px;color:var(--red);letter-spacing:.2px}
+.bn-arr.sm{margin-top:10px;font-size:15px}
+.bn-arr.sm strong{font-size:20px}
+[hidden]{display:none!important}
+
 /* ---------- barre d'actions ---------- */
-.sims-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:30px 0 14px;background:#fff;border-radius:14px;padding:14px 18px;box-shadow:var(--shadow)}
-.sims-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:26px}
+.sims-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 10px;background:#fff;border-radius:14px;padding:9px 14px 9px 18px;box-shadow:var(--shadow)}
+.sims-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:23px}
 .sims-head p{margin:2px 0 0;color:var(--muted);font-size:14px;max-width:62ch}
 .acts{display:flex;gap:8px;flex-wrap:wrap}
 .btn{border:none;border-radius:10px;padding:10px 16px;font-weight:600;font-size:14.5px;cursor:pointer;background:var(--red);color:#fff;transition:background .15s}
@@ -105,24 +117,32 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 /* ---------- fiche de simulation (classes reprises de MonBudget) ---------- */
 .stock-card{background:var(--paper);border-radius:16px;box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;border:1px solid var(--line-2)}
 .stock-card.dirty{box-shadow:inset 4px 0 0 var(--gold),var(--shadow)}
-.stock-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line-2);background:#FFFDF7}
+.stock-head{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line-2);background:#FFFDF7}
 .grip{cursor:grab;color:var(--muted);font-size:18px;user-select:none}
-.sname{flex:1;min-width:120px;border:1.5px solid transparent;border-radius:8px;padding:6px 8px;font-family:var(--display);font-weight:700;font-size:21px;background:transparent}
-.sname:hover,.sname:focus{border-color:var(--line);background:#fff}
+.sname{flex:1;min-width:120px;border:1.5px solid var(--wine);border-radius:8px;padding:6px 8px;font-family:var(--display);font-weight:700;font-size:21px;background:transparent}
+.sname:hover,.sname:focus{border-color:var(--wine);background:#fff}
 .sname-static{flex:1;font-family:var(--display);font-weight:700;font-size:20px}
 .sbadge{font-family:var(--display);font-weight:600;font-size:18px;color:var(--forest);background:#EAF3EC;border-radius:8px;padding:4px 10px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .hide-title-btn{border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:6px 11px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-2)}
 .stock-card.hidden-card .stock-head{border-bottom:none}
-.stock-body{padding:16px 18px 6px}
+.stock-body{padding:12px 16px 4px}
 .fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 14px}
 .fg{display:flex;flex-direction:column;gap:4px;min-width:0}
-.fg>label{font-size:12.5px;color:var(--muted);font-weight:500}
-.fg input,.fg select,.fg textarea{border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;background:#fff;font-size:14.5px;min-height:38px;width:100%}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--ink-2);outline:none}
+.fg>label{font-size:12.5px;color:var(--ink-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px}
+.fg input,.fg select,.fg textarea{border:1.5px solid var(--wine);border-radius:9px;padding:7px 10px;background:#fff;font-size:15px;min-height:38px;width:100%;color:var(--ink)}
+.fgrid6{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px 12px}
+.fg>label.chk{white-space:normal;font-weight:400;color:var(--ink)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--wine);box-shadow:0 0 0 3px rgba(114,22,46,.18);outline:none}
 .fg.mono input{font-variant-numeric:tabular-nums}
-.fg input.ro{background:var(--sand);border-color:var(--line-2);font-weight:600}
-.fg input.lk{background:#F2F0EA;border-color:var(--line-2);color:var(--ink-2);cursor:not-allowed}
-.lock-tag{font-size:11.5px;color:var(--wine);background:#F6E7EA;border-radius:5px;padding:0 6px;margin-left:4px;font-weight:600}
+.fg input.ro{background:var(--sand);font-weight:600}
+.adv-btn{display:block;margin:-4px 0 18px auto;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:3px}
+.adv-btn:hover{color:var(--ink)}
+.fg input.lk,.fg select.lk{background:#F1EEE6;color:var(--ink-2);cursor:not-allowed;opacity:1}
+.fg select.lk{appearance:none;-webkit-appearance:none;padding:7px 10px;font-size:15px;color:var(--ink-2);-webkit-text-fill-color:var(--ink-2)}
+.fg input.lk::-webkit-calendar-picker-indicator{display:none}
+.lock-tag{display:inline-flex;color:var(--wine)}
+.lock-ico{width:11px;height:11px}
+.sname-static.ph{color:var(--muted);font-weight:600}
 .fg .chk{display:flex;align-items:center;gap:8px;min-height:38px;cursor:pointer;font-size:14px}
 .fg .chk input{width:17px;height:17px;min-height:0;accent-color:var(--red)}
 .pgrid .fg:has(>.chk)+.fg:has(>.chk){margin-top:-10px}
@@ -130,7 +150,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .nom-warn::before{content:"!";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:#fff;color:var(--wine);font-weight:700;font-size:14px;line-height:20px;text-align:center}
 .nom-warn:empty{display:none}
 .sec-t{grid-column:1/-1;font-family:var(--display);font-weight:600;font-size:16px;color:var(--ink-2);margin:6px 0 -4px}
-.tri-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.tri-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 .tri-box{background:var(--sand);border-radius:11px;padding:10px 14px;border-left:4px solid var(--ink)}
 .tri-box.tri{border-left-color:var(--wine)}
 .tri-box.cpn{border-left-color:var(--forest)}
@@ -145,13 +165,13 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .ca-rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px}
 .ca-cell{display:flex;flex-direction:column;gap:3px}
 .ca-cell label{font-size:12px;color:var(--muted)}
-.ca-cell input{border:1.5px solid var(--line);border-radius:8px;padding:6px 8px}
+.ca-cell input{border:1.5px solid var(--wine);border-radius:8px;padding:6px 8px}
 .ca-validate{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
 .ca-valid-btn{background:var(--forest);border:none;color:#fff;border-radius:9px;padding:9px 16px;font-weight:600;cursor:pointer}
 .ca-valid-msg{font-size:13px;color:var(--red);font-weight:600}
 .ca-valid-msg.ok{color:var(--forest)}
-.amort-toggle{margin-top:16px}
-.amort-toggle button{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-weight:600;cursor:pointer;color:var(--ink)}
+.amort-toggle{margin-top:10px}
+.amort-toggle button{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px;font-weight:600;cursor:pointer;color:var(--ink)}
 .amort-toggle button:hover{border-color:var(--ink-2)}
 .amort-locked{margin-top:16px;padding:12px 14px;border-radius:10px;background:#FFF6DD;color:#8A5A00;font-size:14px}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -164,8 +184,8 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .amort-tbl{margin-top:12px}
 .risk-box{margin-top:16px;display:flex;flex-direction:column;gap:6px}
 .risk-box label{font-size:12.5px;color:var(--muted)}
-.risk-box textarea{border:1.5px solid var(--line);border-radius:10px;padding:10px;min-height:84px;resize:vertical}
-.loan-exports{margin-top:14px;display:flex;gap:10px 22px;justify-content:flex-end;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid var(--line-2)}
+.risk-box textarea{border:1.5px solid var(--wine);border-radius:10px;padding:10px;min-height:84px;resize:vertical}
+.loan-exports{margin-top:12px;display:flex;gap:10px 22px;justify-content:flex-end;flex-wrap:wrap;align-items:center;padding-top:12px;border-top:1px solid var(--line-2)}
 .le-grp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .le-lbl{font-size:13px;font-weight:600;color:var(--muted);margin-right:2px}
 .le-sig{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-right:auto}
@@ -182,8 +202,8 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .opp-set{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--sand);border:1px solid var(--line-2);border-radius:10px;padding:9px 13px;margin-bottom:10px;font-size:13.5px;color:var(--ink-2)}
 .opp-set .opp-lbl{font-weight:600;color:var(--ink)}
 .opp-set label{display:flex;align-items:center;gap:6px}
-.opp-set input[type=number]{width:70px;border:1.5px solid var(--line);border-radius:8px;padding:5px 8px}
-.opp-set select{border:1.5px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff}
+.opp-set input[type=number]{width:70px;border:1.5px solid var(--wine);border-radius:8px;padding:5px 8px}
+.opp-set select{border:1.5px solid var(--wine);border-radius:8px;padding:5px 8px;background:#fff}
 .opp-set .opp-chk{cursor:pointer}
 .opp-set .opp-chk.off{opacity:.5;cursor:not-allowed}
 .opp-set .opp-chk input{width:16px;height:16px;accent-color:var(--forest)}
@@ -191,10 +211,14 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .lp-body{height:820px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#6b7480}
 .lp-body iframe{width:100%;height:100%;border:none;background:#fff}
 .lp-note{font-size:12.5px;color:var(--muted);margin-top:6px}
-.stock-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--line-2);margin-top:14px;background:#FFFDF7}
+.stock-foot{display:flex;justify-content:flex-end;gap:8px;padding:9px 16px;border-top:1px solid var(--line-2);margin-top:12px;background:#FFFDF7}
 .del-btn{border:1.5px solid #E9C3C9;background:#fff;color:var(--red);border-radius:9px;padding:8px 14px;font-weight:600;cursor:pointer}
 .save-btn{border:none;background:var(--ink);color:#fff;border-radius:9px;padding:8px 16px;font-weight:600;cursor:pointer}
 .save-btn:hover{background:var(--red)}
+.del-btn.sm,.save-btn.sm{padding:6px 12px;font-size:13px;border-radius:8px}
+.del-btn.sm{border-width:1.5px}
+.fg select{font-size:14px;padding:7px 4px 7px 8px}
+.stock-body{padding-bottom:14px!important}
 
 /* ---------- Paramètres ---------- */
 .param{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start}
@@ -208,6 +232,9 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .logo-drop .thumb img{max-width:140px;max-height:58px}
 .hint{font-size:12.5px;color:var(--muted)}
 .discreet{display:flex;align-items:flex-start;gap:7px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line-2);font-size:12px;color:var(--muted);cursor:pointer}
+.opt-list .discreet{margin-top:0;padding:9px 0;border-top:none;border-bottom:1px solid var(--line-2);font-size:13px}
+.opt-list .range-wrap{padding:8px 0 10px 21px;border-bottom:1px solid var(--line-2)}
+.range-wrap.off{opacity:.45}
 .discreet input{width:14px;height:14px;margin:1px 0 0;accent-color:var(--muted)}
 .range-row{display:flex;align-items:center;gap:12px}
 .range-row input[type=range]{flex:1;accent-color:var(--red);min-height:0;border:none;padding:0}
@@ -236,6 +263,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 .modal-box p{margin:0 0 18px}
 .modal-acts{display:flex;justify-content:flex-end;gap:8px}
 
+@media (max-width:1100px){.fgrid6{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:980px){
   .issue{grid-template-columns:1fr}
   .issue-id{border-right:none;border-bottom:1px solid var(--line-2)}
@@ -246,7 +274,9 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 @media (max-width:760px){
   main{padding:18px 12px 60px}
   .bar-in{padding:8px 12px}
-  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fgrid,.fgrid6{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bn-title{font-size:24px}
+  .bn-arr strong{font-size:20px}
   .tri-row{grid-template-columns:repeat(2,1fr)}
   .lp-body{height:62vh}
   .loan-exports{justify-content:flex-start}
@@ -258,7 +288,7 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
   .tabs button{flex:1;padding:8px 6px 6px}
 }
 @media (max-width:460px){
-  .fgrid{grid-template-columns:1fr}
+  .fgrid,.fgrid6{grid-template-columns:1fr}
   .fgrid .fg{grid-column:auto!important}
   .terms dd{font-size:19px}
 }
@@ -274,8 +304,8 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
     <div class="brand">
       <img id="brandLogo" alt="" hidden>
       <div>
-        <div class="brand-name" id="brandName">Simulateur EO GN 2026</div>
-        <div class="brand-sub" id="brandSub">Emprunt obligataire de l'État de Guinée 11 % 2026-2031</div>
+        <div class="brand-name" id="brandName">Simulateur de souscription</div>
+        <div class="brand-sub" id="brandSub" hidden>Simulateur de souscription</div>
       </div>
     </div>
     <nav class="tabs" aria-label="Onglets">
@@ -288,21 +318,25 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 <main>
   <!-- ==================== ONGLET EO GN 2026 ==================== -->
   <section class="view on" id="v-eo">
-    <article class="issue" aria-label="Conditions de l'émission">
+    <!-- bandeau par défaut : deux lignes -->
+    <div class="banner" id="issueBanner">
+      <div class="bn-title"><span class="g">Emprunt obligataire de l'État de Guinée</span> <span class="r">11 % 2026-2031</span></div>
+      <div class="bn-arr">Arrangeur et chef de file : <strong>Afriland First Bank</strong></div>
+    </div>
+    <!-- fiche complète de l'émission : option de Paramètres -->
+    <article class="issue" id="issueFull" hidden aria-label="Conditions de l'émission">
       <div class="issue-id">
         <div class="by">République de Guinée, par appel public à l'épargne</div>
         <h1>Emprunt obligataire de l'État de Guinée</h1>
         <div class="coupon">11 % 2026-2031</div>
-        <div class="window">Souscription du <b>25 septembre au 23 octobre 2026</b>. Arrangeur et chef de file : Afriland First Bank.</div>
+        <div class="window">Souscription du <b>25 septembre au 23 octobre 2026</b></div>
+        <div class="bn-arr sm">Arrangeur et chef de file : <strong>Afriland First Bank</strong></div>
       </div>
       <dl class="terms" id="terms"></dl>
     </article>
 
     <div class="sims-head">
-      <div>
-        <h2>Simulations</h2>
-        <p>Chaque simulation produit l'échéancier du souscripteur, prêt à être prévisualisé et téléchargé en PDF, Word ou Excel.</p>
-      </div>
+      <h2>Simulations</h2>
       <div class="acts">
         <button class="ghost-btn" id="bondsMaskAll" style="display:none" onclick="toggleAllBonds()">Tout masquer</button>
         <button class="btn ghost" onclick="addBond()">Simulation vierge</button>
@@ -340,6 +374,8 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
           </div>
         </div>
 
+        <button class="adv-btn" id="pAdvBtn" type="button" aria-expanded="false" aria-controls="pAdvanced" onclick="toggleAdvanced()">Afficher les réglages avancés ▾</button>
+        <div id="pAdvanced" hidden>
         <div class="panel">
           <h2>Zone de signature</h2>
           <p class="lead">Réglage appliqué aux nouvelles simulations. Chaque simulation garde sa propre case « Zone de signature » à côté des boutons de téléchargement.</p>
@@ -369,9 +405,15 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
 
         <div class="panel">
           <h2>Affichage</h2>
-          <p class="lead">Éclaircit le visuel de l'emprunt en arrière-plan pour améliorer la lisibilité.</p>
-          <div class="fg"><label for="pVeil">Voile sur le visuel</label>
-            <div class="range-row"><input id="pVeil" type="range" min="0" max="85" step="5" oninput="setParam('veil',this.value)"><output id="pVeilOut">30 %</output></div></div>
+          <p class="lead">Par défaut, la page reste épurée : fond éclairci pour une lecture confortable, bandeau de l'émission sur deux lignes, fiches limitées aux champs essentiels et échéancier replié.</p>
+          <div class="opt-list">
+            <label class="discreet"><input id="pVisual" type="checkbox" onchange="setParam('showVisual',this.checked)"><span>Afficher le visuel de l'emprunt en arrière-plan (fond d'origine)</span></label>
+            <div class="fg range-wrap" id="pVeilRow"><label for="pVeil">Voile sur le visuel</label>
+              <div class="range-row"><input id="pVeil" type="range" min="0" max="85" step="5" oninput="setParam('veil',this.value)"><output id="pVeilOut">30 %</output></div></div>
+            <label class="discreet"><input id="pTerms" type="checkbox" onchange="setParam('showTerms',this.checked)"><span>Afficher la fiche complète de l'émission (montant, taux, maturité, dates, fiscalité…)</span></label>
+            <label class="discreet"><input id="pDefer" type="checkbox" onchange="setParam('showDefer',this.checked)"><span>Afficher le champ « Différé » dans les simulations</span></label>
+            <label class="discreet"><input id="pExtras" type="checkbox" onchange="setParam('showExtras',this.checked)"><span>Afficher la décote, la fiscalité et les indicateurs (rendements, durations, intérêts totaux) dans les simulations</span></label>
+          </div>
         </div>
 
         <div class="panel">
@@ -383,7 +425,8 @@ main{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
             <button class="btn danger" onclick="wipeAll()">Effacer toutes les données</button>
             <input id="pImport" type="file" accept="application/json,.json" hidden onchange="importParams(this)">
           </div>
-          <label class="discreet"><input id="pUnlock" type="checkbox" onchange="setParam('unlockEO',this.checked)"><span>Rendre modifiables les champs figés des simulations EO GN 2026 (valeur nominale, nombre de titres, taux facial, durée)</span></label>
+          <label class="discreet"><input id="pUnlock" type="checkbox" onchange="setParam('unlockEO',this.checked)"><span>Rendre modifiables les champs figés des simulations EO GN 2026 (valeur nominale, nombre de titres, taux facial, durée, périodicité, dates de jouissance et d'échéance, mode de remboursement)</span></label>
+        </div>
         </div>
       </div>
 
@@ -1074,6 +1117,7 @@ function exportAmort(type,i){
   if(typeof ExcelJS==='undefined'){toast('Module Excel en chargement, réessayez');return}
   const b=type==='bond'?state.portfolio.bonds[i]:state.portfolio.money[i];
   if(!b){return}
+  if(customLocked(b)){toast('Validez d\'abord la répartition personnalisée (somme = 100%)');return}
   const rows=amortTable(b);
   if(!rows.length){toast('Renseignez d\'abord la date de valeur');return}
   const cur=curTitre();const numFmt='#,##0 "'+cur+'"';   // devise de la filiale de rattachement
@@ -1146,8 +1190,13 @@ const DEFAULT_SETTINGS={
   sigDefault:true,sigName:'',sigTitle:'',
   font:'times',fontSize:11,showRendAnnuel:false,showDurSimple:false,showDurMac:false,
   veil:30,
-  unlockEO:false             // case discrète de Paramètres : déverrouille les champs figés
+  unlockEO:false,            // case discrète de Paramètres : déverrouille les champs figés
+  showVisual:false,          // visuel de l'emprunt en arrière-plan (sinon fond éclairci)
+  showTerms:false,           // fiche complète de l'émission (sinon bandeau sur deux lignes)
+  showExtras:false,          // décote, fiscalité et indicateurs dans les fiches
+  showDefer:false            // champ « Différé » dans les fiches
 };
+const VEIL_CLAIR=90;         // voile du fond éclairci par défaut, en %
 let state={cur:'GNF',portfolio:{bonds:[]},oppLayout:null,settings:Object.assign({},DEFAULT_SETTINGS),tab:'eo'};
 
 function loadData(){
@@ -1249,7 +1298,7 @@ function freshEO(){
   return {id:rid(),kind:'eo',issuer:E.issuer,souscripteur:'',montant:E.nominal,nominal:E.nominal,nbTitres:1,
     tauxFacial:E.tauxFacial,years:E.years,freq:E.freq,defer:E.defer,mode:E.mode,dateVal:E.dateVal,dateEch:E.dateEch,
     custom:[],decote:0,decoteOn:false,fiscalite:E.fiscalite,risk:'',sig:!!state.settings.sigDefault,
-    _hidden:false,_open:true,_dirty:false};
+    _hidden:false,_open:false,_dirty:false};
 }
 function addBond(){state.portfolio.bonds.push(freshBond());saveData();renderBonds();toast('Simulation vierge ajoutée');scrollToCard(state.portfolio.bonds.length-1);}
 function addEO(){state.portfolio.bonds.push(freshEO());saveData();renderBonds();toast('Simulation EO GN 2026 ajoutée');scrollToCard(state.portfolio.bonds.length-1);}
@@ -1293,10 +1342,17 @@ function oppMoneyInput(el,kind,i,field){
 function bondSig(b){return b.sig==null?!!state.settings.sigDefault:!!b.sig;}
 /* champs figés aux conditions de l'EO GN 2026 (simulations EO uniquement),
    déverrouillables par la case discrète de Paramètres */
-const EO_LOCKED=['nominal','nbTitres','tauxFacial','years'];
+const EO_LOCKED=['nominal','nbTitres','tauxFacial','years','freq','dateVal','dateEch','mode'];
 function eoLocked(b){return !!b&&b.kind==='eo'&&!state.settings.unlockEO;}
 function lockAttr(b){return eoLocked(b)?' readonly class="lk" title="Champ figé aux conditions de l\'EO GN 2026"':'';}
-function lockTag(b){return eoLocked(b)?' <span class="lock-tag">verrouillé</span>':'';}
+const LOCK_SVG='<svg class="lock-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="7" width="10" height="7.5" rx="1.6" fill="currentColor"/></svg>';
+function lockSel(b){return eoLocked(b)?' disabled class="lk" title="Champ figé aux conditions de l\'EO GN 2026"':'';}
+/* section « échéancier » (signature, aperçu, téléchargements, tableau) repliée par défaut */
+function lockTag(b){return eoLocked(b)?' <span class="lock-tag" title="Champ verrouillé">'+LOCK_SVG+'</span>':'';}
+/* en-tête de fiche : pour une simulation EO verrouillée, le nom du souscripteur remplace l'émetteur (déjà affiché dans le bandeau) */
+function cardTitle(b){return (b.souscripteur||'').trim()||'Nouveau souscripteur';}
+/* le mode personnalisé exige une répartition validée avant tout export */
+function customLocked(b){return b&&b.mode==='custom'&&!b._customValid;}
 /* montant non multiple de la valeur nominale */
 function nominalWarn(b){
   const nom=+b.nominal||0,M=+b.montant||0;
@@ -1351,6 +1407,7 @@ function refreshBondCard(i,rebuiltField){
   card.classList.add('dirty');
   const m=bondMetrics(b);
   const badge=card.querySelector('.sbadge');if(badge)badge.textContent=moneyT(m.montant);
+  const ttl=card.querySelector('.sname-static[data-live]');if(ttl){ttl.textContent=cardTitle(b);ttl.classList.toggle('ph',!(b.souscripteur||'').trim());}
   const payInp=card.querySelector('input.ro');
   if(payInp)payInp.value=moneyT((+b.montant||0)*(1-Math.min(100,Math.max(0,+b.decote||0))/100));
   // synchronisation montant / nombre de titres
@@ -1431,54 +1488,56 @@ function renderBonds(){
         <span class="ca-valid-msg ${b._customValid?'ok':''}">${b._customValid?'✓ Répartition validée (100%)':'La somme doit faire 100% pour calculer l’échéancier'}</span></div>
         </div>`;
     }
+    const X=!!state.settings.showExtras;   // décote, fiscalité et indicateurs : option de Paramètres
+    const head=eoLocked(b)
+      ? `<span class="sname-static${(b.souscripteur||'').trim()?'':' ph'}" data-live>${escapeHtml(cardTitle(b))}</span>`
+      : `<input class="sname" value="${escapeHtml(b.issuer)}" placeholder="Émetteur (ex. État de Guinée 11 % 2026-2031)" aria-label="Émetteur" oninput="editBond(${i},'issuer',null,this.value)">`;
     return `<div class="stock-card bond-card ${b._dirty?'dirty':''}" data-bidx="${i}" draggable="true">
       <div class="stock-head">
         <span class="grip" title="Glisser pour réorganiser">⠿</span>
-        <input class="sname" value="${escapeHtml(b.issuer)}" placeholder="Émetteur (ex. État de Guinée 11 % 2026-2031)" aria-label="Émetteur" oninput="editBond(${i},'issuer',null,this.value)">
-        <span class="sbadge">${moneyT(m.montant)}</span>
+        ${head}
+        <button class="del-btn sm" onclick="delBond(${i})">Supprimer</button>
+        <button class="save-btn sm" onclick="saveBond(${i})">Enregistrer</button>
         <button class="hide-title-btn" onclick="toggleBondHide(${i})">Masquer</button>
       </div>
       <div class="stock-body">
-        <div class="fgrid">
+        <div class="fgrid fgrid6">
           <div class="fg" style="grid-column:span 2"><label>Nom et prénoms du souscripteur</label><input type="text" value="${escapeHtml(b.souscripteur||'')}" placeholder="Ex. DIALLO Aïssatou" oninput="editBond(${i},'souscripteur',null,this.value)" title="Repris en tête de l'échéancier"></div>
-          <div class="fg mono"><label>Valeur nominale d'un titre${lockTag(b)}</label><input type="text"${lockAttr(b)} inputmode="numeric" value="${moneyInputFmt(b.nominal||'')}" placeholder="0 = sans objet" oninput="oppMoneyInput(this,'bond',${i},'nominal')"></div>
+          <div class="fg mono"><label>Montant investi (${escapeHtml(curTitre())})</label><input type="text" data-f="montant" inputmode="numeric" value="${moneyInputFmt(b.montant||'')}" placeholder="0" oninput="oppMoneyInput(this,'bond',${i},'montant')"></div>
+          <div class="fg mono"><label>Valeur nominale${lockTag(b)}</label><input type="text"${lockAttr(b)} inputmode="numeric" value="${moneyInputFmt(b.nominal||'')}" placeholder="0 = sans objet" oninput="oppMoneyInput(this,'bond',${i},'nominal')"></div>
           <div class="fg mono"><label>Nombre de titres${lockTag(b)}</label><input type="number"${lockAttr(b)} data-f="nbTitres" step="1" min="0" value="${b.nbTitres||''}" placeholder="0" ${nomOn?'':'disabled'} oninput="editBond(${i},'nbTitres',null,this.value)" title="${eoLocked(b)?'Calculé à partir du montant investi':'Montant = nombre de titres × valeur nominale'}"></div>
-        </div>
-        <div class="fgrid" style="margin-top:13px">
-          <div class="fg mono"><label>Montant investi</label><input type="text" data-f="montant" inputmode="numeric" value="${moneyInputFmt(b.montant||'')}" placeholder="0" oninput="oppMoneyInput(this,'bond',${i},'montant')"></div>
-          <div class="fg mono"><label>Taux facial (% annuel)${lockTag(b)}</label><input type="number"${lockAttr(b)} step="0.01" min="0" value="${b.tauxFacial||''}" placeholder="0" oninput="editBond(${i},'tauxFacial',null,this.value)"></div>
+          <div class="fg mono"><label>Taux facial (%)${lockTag(b)}</label><input type="number"${lockAttr(b)} step="0.01" min="0" value="${b.tauxFacial||''}" placeholder="0" oninput="editBond(${i},'tauxFacial',null,this.value)"></div>
           <div class="fg mono"><label>Durée (années)${lockTag(b)}</label><input type="number"${lockAttr(b)} step="0.5" min="0.5" value="${b.years||''}" placeholder="5" oninput="editBond(${i},'years',null,this.value)"></div>
-          <div class="fg"><label>Périodicité coupon</label>
-            <select onchange="editBond(${i},'freq',null,this.value)">
+          <div class="fg"><label>Périodicité du coupon${lockTag(b)}</label>
+            <select${lockSel(b)} onchange="editBond(${i},'freq',null,this.value)">
               <option value="12" ${b.freq=='12'?'selected':''}>Mensuelle</option>
               <option value="4" ${b.freq=='4'?'selected':''}>Trimestrielle</option>
               <option value="2" ${b.freq=='2'?'selected':''}>Semestrielle</option>
               <option value="1" ${b.freq=='1'?'selected':''}>Annuelle</option>
             </select>
           </div>
-          <div class="nom-warn" role="alert">${escapeHtml(nominalWarn(b))}</div>
-        </div>
-        <div class="fgrid" style="margin-top:13px">
-          <div class="fg"><label>Date de jouissance (valeur)</label><input type="date" value="${b.dateVal||''}" oninput="editBond(${i},'dateVal',null,this.value)"></div>
-          <div class="fg"><label>Date d'échéance</label><input type="date" value="${b.dateEch||''}" oninput="editBond(${i},'dateEch',null,this.value)"></div>
-          <div class="fg mono"><label>Différé — ${(()=>{const di=deferInfo(b.years,b.defer,+b.freq||1);return di.nDef+' '+di.freqLabel+' · max '+di.maxDefPeriods;})()}</label><input type="number" step="1" min="0" value="${b.defer||0}" oninput="editBond(${i},'defer',null,this.value)" onchange="clampDefer('bond',${i},this)" title="Nombre de périodes sans remboursement du capital (coupons quand même payés). Borné pour laisser au moins 1 échéance d'amortissement."></div>
-          <div class="fg"><label>Mode de remboursement</label>
-            <select onchange="editBond(${i},'mode',null,this.value)">
+          <div class="fg"><label>Date de jouissance${lockTag(b)}</label><input type="date"${lockAttr(b)} value="${b.dateVal||''}" oninput="editBond(${i},'dateVal',null,this.value)"></div>
+          <div class="fg"><label>Date d'échéance${lockTag(b)}</label><input type="date"${lockAttr(b)} value="${b.dateEch||''}" oninput="editBond(${i},'dateEch',null,this.value)"></div>
+          ${state.settings.showDefer?`<div class="fg mono"><label>Différé — ${(()=>{const di=deferInfo(b.years,b.defer,+b.freq||1);return di.nDef+' '+di.freqLabel+' · max '+di.maxDefPeriods;})()}</label><input type="number" step="1" min="0" value="${b.defer||0}" oninput="editBond(${i},'defer',null,this.value)" onchange="clampDefer('bond',${i},this)" title="Nombre de périodes sans remboursement du capital (coupons quand même payés). Borné pour laisser au moins 1 échéance d'amortissement."></div>`:''}
+          <div class="fg"${state.settings.showDefer?'':' style="grid-column:span 2"'}><label>Mode de remboursement${lockTag(b)}</label>
+            <select${lockSel(b)} onchange="editBond(${i},'mode',null,this.value)">
               <option value="infine" ${b.mode==='infine'?'selected':''}>In fine</option>
               <option value="constant" ${b.mode==='constant'?'selected':''}>Amortissement constant</option>
               <option value="annuite" ${b.mode==='annuite'?'selected':''}>Annuités constantes</option>
               <option value="custom" ${b.mode==='custom'?'selected':''}>Personnalisé</option>
             </select>
           </div>
+          <div class="nom-warn" role="alert">${escapeHtml(nominalWarn(b))}</div>
         </div>
-        <div class="fgrid" style="margin-top:13px">
+        ${X?`<div class="fgrid" style="margin-top:12px">
           <div class="fg mono"><label>Décote (%)</label><input type="number" step="0.01" min="0" max="100" value="${b.decote||''}" placeholder="0" oninput="editBond(${i},'decote',null,this.value)"></div>
           <div class="fg"><label>Décote dans l'échéancier</label><label class="chk"><input type="checkbox" ${b.decoteOn?'checked':''} onchange="editBond(${i},'decoteOn',null,this.checked?1:0)"><span>Inclure dans les caractéristiques</span></label></div>
           <div class="fg mono"><label>Montant à payer</label><input class="ro" readonly title="Montant nominal × (1 − taux de décote). Sans impact sur le tableau d'amortissement." value="${moneyT((+b.montant||0)*(1-Math.min(100,Math.max(0,+b.decote||0))/100))}"></div>
-          <div class="fg"><label>Fiscalité</label><input type="text" value="${escapeHtml(b.fiscalite||'')}" placeholder="Laisser vide pour ne pas l'afficher" oninput="editBond(${i},'fiscalite',null,this.value)"></div>
-        </div>
+          <div class="fg"><label>Fiscalité (mention NB)</label><input type="text" value="${escapeHtml(b.fiscalite||'')}" placeholder="Laisser vide pour ne pas l'afficher" oninput="editBond(${i},'fiscalite',null,this.value)"></div>
+        </div>`:''}
         ${customBlock}
-        <div class="tri-row">
+        ${oppExportBar('bond',i,b.id)}
+        ${X?`<div class="tri-row">
           <div class="tri-box tri"><div class="tl">Rendement global (période)</div><div class="tv">${m.rendGlobal.toFixed(2)}%</div></div>
           <div class="tri-box cpn"><div class="tl">Rendement annuel</div><div class="tv">${m.rendAnnuel.toFixed(2)}%</div></div>
           <div class="tri-box dur"><div class="tl">Duration (Macaulay)</div><div class="tv">${m.durMac.toFixed(2)} an${m.durMac>1?'s':''}</div></div>
@@ -1487,15 +1546,11 @@ function renderBonds(){
           <div class="tri-box cpn"><div class="tl">Intérêts totaux perçus</div><div class="tv">${moneyT(m.totalInterest)}</div></div>
           <div class="tri-box dur"><div class="tl">Duration simple</div><div class="tv">${m.durSimple.toFixed(2)} an${m.durSimple>1?'s':''}</div></div>
           <div class="tri-box tri"><div class="tl">Nb d'échéances</div><div class="tv">${m.nTot}${m.nDef?' (dont '+m.nDef+' diff.)':''}</div></div>
-        </div>
+        </div>`:''}
         ${(b.mode==='custom'&&!b._customValid)
-          ? `<div class="amort-locked">Validez la répartition personnalisée (somme = 100%) pour afficher le tableau d'amortissement.</div>`
+          ? `<div class="amort-locked">Validez la répartition personnalisée (somme = 100%) pour afficher le tableau d'amortissement et produire les échéanciers.</div>`
           : `<div class="amort-toggle"><button onclick="toggleBondAmort(${i})">${b._open?'▲ Masquer le tableau d\'amortissement':'▼ Voir le tableau d\'amortissement'}</button></div>
-        ${b._open?'<div class="amort-host">'+amortTableHTML(amortTable(b))+'</div>'+riskBoxHTML('bond',i,b)+oppExportBar('bond',i,b.id):''}`}
-      </div>
-      <div class="stock-foot">
-        <button class="del-btn" onclick="delBond(${i})">Supprimer</button>
-        <button class="save-btn" onclick="saveBond(${i})">Enregistrer</button>
+        ${b._open?'<div class="amort-host">'+amortTableHTML(amortTable(b))+'</div>'+riskBoxHTML('bond',i,b):''}`}
       </div>
     </div>`;
   }).join('');
@@ -1503,7 +1558,7 @@ function renderBonds(){
   // l'aperçu ouvert survit au re-rendu (réordonnancement, changement de mode…)
   if(_oppPrev){
     const k=list.findIndex(x=>x.id===_oppPrev.id);
-    if(k<0||list[k]._hidden||!list[k]._open||!document.getElementById('oppPrev-'+_oppPrev.id))closeOppPreview();
+    if(k<0||list[k]._hidden||!document.getElementById('oppPrev-'+_oppPrev.id))closeOppPreview();
     else{_oppPrev.i=k;oppPreviewRender(true);}
   }
 }
@@ -1532,6 +1587,7 @@ function oppExportBar(type,i,id){
 function oppDocData(type,i){
   const b=state.portfolio.bonds[i];
   if(!b)return null;
+  if(customLocked(b)){toast('Validez d\'abord la répartition personnalisée (somme = 100%)');return null;}
   const rows=amortTable(b);
   if(!rows.length){toast('Renseignez d\'abord la date de jouissance');return null;}
   const m=bondMetrics(b);
@@ -1687,23 +1743,42 @@ function setParam(k,v){
   const s=state.settings;
   if(k==='fontSize'){const n=+v;if(!n)return;s.fontSize=Math.min(14,Math.max(7,n));}
   else if(k==='veil'){s.veil=Math.min(85,Math.max(0,+v||0));applyVeil();}
-  else if(['sigDefault','showRendAnnuel','showDurSimple','showDurMac','unlockEO'].includes(k))s[k]=!!v;
+  else if(['sigDefault','showRendAnnuel','showDurSimple','showDurMac','unlockEO','showVisual','showTerms','showExtras','showDefer'].includes(k))s[k]=!!v;
   else if(k==='currency')s.currency=(v||'').trim().toUpperCase();
   else s[k]=v;
   saveData();applyBrand();renderParamPreview();
   // la devise apparaît dans les fiches : re-rendu différé
   if(k==='currency'){clearTimeout(_bondsRT);_bondsRT=setTimeout(renderBonds,350);}
   if(k==='unlockEO'){renderBonds();toast(s.unlockEO?'Champs déverrouillés':'Champs verrouillés');}
+  if(k==='showVisual'||k==='showTerms')applyDisplay();
+  if(k==='showExtras'||k==='showDefer')renderBonds();
+}
+/* fond : éclairci par défaut (lisibilité maximale) ; visuel d'origine en option, avec voile réglable */
+/* réglages avancés de Paramètres (à partir de « Zone de signature ») : masqués à chaque ouverture */
+function toggleAdvanced(){
+  const box=document.getElementById('pAdvanced'),btn=document.getElementById('pAdvBtn');
+  const show=box.hidden;box.hidden=!show;
+  btn.textContent=show?'Masquer les réglages avancés ▴':'Afficher les réglages avancés ▾';
+  btn.setAttribute('aria-expanded',show?'true':'false');
 }
 function applyVeil(){
-  const v=+state.settings.veil;
-  document.documentElement.style.setProperty('--veil',(isNaN(v)?30:v)/100);
-  const o=document.getElementById('pVeilOut');if(o)o.textContent=(isNaN(v)?30:v)+' %';
+  const s=state.settings;let v=+s.veil;if(isNaN(v))v=30;
+  document.documentElement.style.setProperty('--veil',(s.showVisual?v:VEIL_CLAIR)/100);
+  document.body.classList.toggle('bg-clair',!s.showVisual);
+  const o=document.getElementById('pVeilOut');if(o)o.textContent=v+' %';
+  const r=document.getElementById('pVeilRow');if(r)r.classList.toggle('off',!s.showVisual);
+  const inp=document.getElementById('pVeil');if(inp)inp.disabled=!s.showVisual;
+}
+function applyDisplay(){
+  const s=state.settings;
+  document.getElementById('issueBanner').hidden=!!s.showTerms;
+  document.getElementById('issueFull').hidden=!s.showTerms;
+  applyVeil();
 }
 function applyBrand(){
   const s=state.settings;const name=(s.entName||'').trim();
-  document.getElementById('brandName').textContent=name||'Simulateur EO GN 2026';
-  document.getElementById('brandSub').textContent=name?'Simulateur de l\'emprunt obligataire de l\'État de Guinée 2026':'Emprunt obligataire de l\'État de Guinée 11 % 2026-2031';
+  document.getElementById('brandName').textContent=name||'Simulateur de souscription';
+  const sub=document.getElementById('brandSub');sub.textContent='Simulateur de souscription';sub.hidden=!name;
   const img=document.getElementById('brandLogo');
   if(s.logo){img.src=s.logo;img.hidden=false;}else{img.hidden=true;img.removeAttribute('src');}
 }
@@ -1715,6 +1790,7 @@ function fillParamForm(){
   $('pRA').checked=!!s.showRendAnnuel;$('pDS').checked=!!s.showDurSimple;$('pDM').checked=!!s.showDurMac;
   $('pVeil').value=s.veil;applyVeil();
   $('pUnlock').checked=!!s.unlockEO;
+  $('pVisual').checked=!!s.showVisual;$('pTerms').checked=!!s.showTerms;$('pExtras').checked=!!s.showExtras;$('pDefer').checked=!!s.showDefer;
   renderLogoThumb();
 }
 function renderLogoThumb(){
@@ -1775,7 +1851,7 @@ function importParams(inp){
       if(!d||d.type!=='parametres'||typeof d.settings!=='object')throw new Error('format');
       const keep={};Object.keys(DEFAULT_SETTINGS).forEach(k=>{if(d.settings[k]!==undefined)keep[k]=d.settings[k];});
       state.settings=Object.assign({},DEFAULT_SETTINGS,keep);
-      saveData();fillParamForm();applyBrand();renderParamPreview();renderBonds();
+      saveData();fillParamForm();applyBrand();applyDisplay();renderParamPreview();renderBonds();
       toast('Paramètres importés');
     }catch(e){toast('Fichier non reconnu : importez un fichier exporté depuis cet onglet');}
   };
@@ -1787,7 +1863,7 @@ function wipeAll(){
     closeOppPreview();
     state={cur:'GNF',portfolio:{bonds:[freshEO()]},oppLayout:null,settings:Object.assign({},DEFAULT_SETTINGS),tab:state.tab};
     state.portfolio.bonds[0].sig=true;
-    saveData();fillParamForm();applyBrand();renderParamPreview();renderBonds();
+    saveData();fillParamForm();applyBrand();applyDisplay();renderParamPreview();renderBonds();
     toast('Données effacées');
   },'Tout effacer');
 }
@@ -1799,7 +1875,7 @@ function init(){
   document.getElementById('bg').style.backgroundImage='url('+BG_EO_JPG+')';
   const known=loadData();
   if(!known)state.portfolio.bonds=[freshEO()];   // premier lancement : une simulation prête à l'emploi
-  renderTerms();fillParamForm();applyBrand();renderBonds();
+  renderTerms();fillParamForm();applyBrand();applyDisplay();renderBonds();
   nav(state.tab||'eo');
 }
 init();
