@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EO GN 2026 · Simulateur de l'emprunt obligataire de l'État de Guinée</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='21.3' height='64' fill='%23CE1126'/%3E%3Crect x='21.3' width='21.4' height='64' fill='%23FCD116'/%3E%3Crect x='42.7' width='21.3' height='64' fill='%23009460'/%3E%3C/svg%3E">
+<!-- Application installable (PWA) : manifeste, icônes et service worker (sw.js) dans le même dossier -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#A6192E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EO GN 2026">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <!--
   EO GN 2026 — plateforme dérivée de MonBudget (Afriland Bourse & Investissement)
   Reprend à l'identique le simulateur d'emprunt obligataire de l'onglet « Mon portefeuille »
@@ -267,6 +275,27 @@ main{max-width:1180px;margin:0 auto;padding:14px 20px 28px}
 /* ---------- notifications et confirmation ---------- */
 #toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;max-width:calc(100% - 32px)}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- proposition d'installation (PWA) ---------- */
+.inst{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,24px);width:min(580px,calc(100% - 24px));background:var(--paper);border-radius:16px;box-shadow:0 2px 6px rgba(31,31,33,.10),0 18px 48px rgba(31,31,33,.22);overflow:hidden;z-index:55;opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s linear .25s}
+.inst.show{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .25s,transform .25s}
+.inst::before{content:"";display:block;height:4px;background:linear-gradient(90deg,#CE1126 0 33.3%,#FCD116 33.3% 66.6%,#009460 66.6%)}
+.inst-in{display:flex;gap:14px;align-items:flex-start;padding:16px 18px 16px}
+.inst-in img{width:52px;height:52px;border-radius:12px;flex:none}
+.inst-txt{flex:1;min-width:0}
+.inst-txt h2{margin:0 0 4px;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1;color:var(--ink)}
+.inst-txt p{margin:0;font-size:14px;color:var(--ink-2)}
+.inst-txt p b{color:var(--ink)}
+.inst-ios-ico{display:inline-block;vertical-align:-3px;width:16px;height:16px}
+.inst-acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding:0 18px 16px}
+.inst-x{flex:none;border:none;background:none;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:2px 4px;margin:-4px -6px 0 0}
+.inst-x:hover{color:var(--red)}
+@media (max-width:460px){
+  .inst-in{padding:14px 14px 12px;gap:12px}
+  .inst-in img{width:44px;height:44px}
+  .inst-acts{padding:0 14px 14px}
+  .inst-acts .btn{flex:1}
+}
 .modal{position:fixed;inset:0;background:rgba(31,31,33,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
 .modal.show{display:flex}
 .modal-box{background:#fff;border-radius:14px;padding:22px;max-width:440px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.3)}
@@ -456,6 +485,17 @@ main{max-width:1180px;margin:0 auto;padding:14px 20px 28px}
 </main>
 
 <div id="toast" role="status" aria-live="polite"></div>
+<aside class="inst" id="instBanner" role="dialog" aria-modal="false" aria-labelledby="instTitle" aria-describedby="instMsg" hidden>
+  <div class="inst-in">
+    <img src="icon-192.png" alt="" width="52" height="52">
+    <div class="inst-txt">
+      <h2 id="instTitle">Installer le simulateur EO GN 2026</h2>
+      <p id="instMsg"></p>
+    </div>
+    <button class="inst-x" type="button" aria-label="Fermer" onclick="instLater()">&times;</button>
+  </div>
+  <div class="inst-acts" id="instActs"></div>
+</aside>
 <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmMsg">
   <div class="modal-box">
     <p id="confirmMsg"></p>
@@ -1952,6 +1992,109 @@ function init(){
   nav(state.tab||'eo');
 }
 init();
+
+/* =====================================================================
+   10. APPLICATION INSTALLABLE (PWA)
+   - Enregistre le service worker (sw.js, même dossier que index.html).
+   - À chaque nouvelle connexion, propose d'installer le simulateur
+     tant qu'il ne l'est pas sur le poste.
+   - Ne s'affiche jamais dans l'application installée, ni une fois
+     l'installation faite. « Plus tard » masque la proposition jusqu'à
+     la prochaine connexion (nouvel onglet ou nouvelle fenêtre).
+   - Chrome, Edge, Opera, Samsung Internet : bouton « Installer » natif.
+     iPhone / iPad et Safari sur Mac : instructions pas à pas.
+     Firefox (ordinateur) : ne sait pas installer, rien n'est proposé.
+   ===================================================================== */
+const INST_KEY='eogn2026-installed';     // localStorage : application déclarée installée
+const INST_LATER='eogn2026-inst-later';  // sessionStorage : « Plus tard » pour cette connexion
+let instPrompt=null, instTimer=null;
+
+function instIsStandalone(){
+  return ['standalone','window-controls-overlay','minimal-ui','fullscreen']
+    .some(m=>window.matchMedia&&window.matchMedia('(display-mode: '+m+')').matches)
+    || window.navigator.standalone===true;
+}
+function instGet(store,k){try{return store.getItem(k);}catch(e){return null;}}
+function instSet(store,k,v){try{v===null?store.removeItem(k):store.setItem(k,v);}catch(e){}}
+function instPlatform(){
+  const ua=navigator.userAgent||'';
+  const ios=/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  if(ios)return 'ios';
+  if(/Macintosh/.test(ua)&&/Safari\//.test(ua)&&!/Chrome|Chromium|CriOS|Edg|OPR|Firefox|FxiOS/.test(ua))return 'macsafari';
+  return 'other';
+}
+function instMarkInstalled(){
+  instSet(localStorage,INST_KEY,'1');
+  instHide();
+}
+function instHide(){
+  clearTimeout(instTimer);
+  const b=document.getElementById('instBanner');
+  if(!b||b.hidden)return;
+  b.classList.remove('show');
+  setTimeout(()=>{b.hidden=true;},260);
+}
+function instLater(){
+  instSet(sessionStorage,INST_LATER,'1');
+  instHide();
+}
+function instShow(mode){
+  if(instIsStandalone()||instGet(sessionStorage,INST_LATER))return;
+  const shareIco='<svg class="inst-ios-ico" viewBox="0 0 24 24" fill="none" stroke="#0A84FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 11v9h14v-9"/></svg>';
+  const msg={
+    native:'Ouvrez-le comme une application, depuis votre bureau ou votre écran d\'accueil, sans passer par le navigateur. Vos paramètres et simulations restent disponibles.',
+    ios:'Pour l\'ouvrir comme une application depuis l\'écran d\'accueil : touchez le bouton <b>Partager</b> '+shareIco+' puis <b>« Sur l\'écran d\'accueil »</b> et <b>« Ajouter »</b>.',
+    macsafari:'Pour l\'ouvrir comme une application depuis le Dock : menu <b>Fichier</b> puis <b>« Ajouter au Dock »</b>.'
+  }[mode];
+  const acts={
+    native:'<button class="btn quiet" type="button" onclick="instLater()">Plus tard</button><button class="btn" type="button" onclick="instInstall()">Installer</button>',
+    ios:'<button class="btn quiet" type="button" onclick="instMarkInstalled()">Déjà installé</button><button class="btn" type="button" onclick="instLater()">J\'ai compris</button>',
+    macsafari:'<button class="btn quiet" type="button" onclick="instMarkInstalled()">Déjà installé</button><button class="btn" type="button" onclick="instLater()">J\'ai compris</button>'
+  }[mode];
+  document.getElementById('instMsg').innerHTML=msg;
+  document.getElementById('instActs').innerHTML=acts;
+  clearTimeout(instTimer);
+  instTimer=setTimeout(()=>{            // laisse la page s'afficher avant de proposer
+    const b=document.getElementById('instBanner');
+    b.hidden=false;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>b.classList.add('show')));
+  },1500);
+}
+async function instInstall(){
+  if(!instPrompt){instHide();return;}
+  const p=instPrompt; instPrompt=null;
+  instHide();
+  try{
+    await p.prompt();
+    const choice=await p.userChoice;
+    if(choice&&choice.outcome==='accepted')instSet(localStorage,INST_KEY,'1');
+    else instSet(sessionStorage,INST_LATER,'1');
+  }catch(e){}
+}
+function instSetup(){
+  if(!/^https?:$/.test(location.protocol))return;   // fichier ouvert en local : ni service worker ni installation
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+  }
+  if(instIsStandalone()){instSet(localStorage,INST_KEY,'1');return;}   // on est dans l'application installée
+  // Chrome, Edge, Opera, Samsung Internet : l'événement n'est émis que si l'application
+  // n'est PAS installée sur le poste (il sert donc aussi à détecter une désinstallation).
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    instPrompt=e;
+    instSet(localStorage,INST_KEY,null);
+    instShow('native');
+  });
+  window.addEventListener('appinstalled',()=>{
+    instPrompt=null;
+    instMarkInstalled();
+    toast('Simulateur installé : ouvrez-le depuis votre bureau ou votre écran d\'accueil');
+  });
+  // Safari (iPhone, iPad, Mac) : pas d'installation automatique, on affiche la marche à suivre.
+  const pf=instPlatform();
+  if((pf==='ios'||pf==='macsafari')&&!instGet(localStorage,INST_KEY))instShow(pf);
+}
+instSetup();
 
 </script>
 </body>
